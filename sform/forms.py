@@ -20,3 +20,57 @@ class ContactForm(forms.Form):
         message = cleaned_data.get('message')
         if not name and not email and not message:
             raise forms.ValidationError('You have to write something!')
+
+class ColorfulContactForm(forms.Form):
+    name = forms.CharField(
+            max_length=30,
+            widget=forms.TextInput(
+                attrs={
+                    'style': 'border-color: blue;',
+                    'placeholder': 'write your name here'
+                }
+            )
+    )
+    email = forms.EmailField(
+        max_length=254,
+        widget=forms.TextInput(
+            attrs={
+                'style': 'border-color: green;',
+            }
+        )
+    )
+    message = forms.CharField(
+        max_length=2000,
+        widget=forms.Textarea(
+            attrs={
+                'style': 'border-color: orange;',
+            }
+        ),
+        help_text='write your message here!'
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
