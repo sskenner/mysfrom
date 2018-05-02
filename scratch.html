@@ -1,47 +1,24 @@
-
-
-
-
-
-
-
-
 <form method="post" novalidate>
   {% csrf_token %}
 
   {{ form.non_field_errors }}
 
-  {{ form.source.errors }}
-  {{ form.source }}
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field.errors }}
+    {{ hidden_field }}
+  {% endfor %}
 
   <table border="1">
-
+    {% for field in form.visible_fields %}
       <tr>
-        <th>{{ form.name.label_tag }}</th>
+        <th>{{ field.label_tag }}</th>
         <td>
-          {{ form.name.errors }}
-          {{ form.name }}
+          {{ field.errors }}
+          {% render_field field style="border: 2px dashed red;" placeholder=field.name %}
+          {{ field.help_text }}
         </td>
       </tr>
-
-      <tr>
-        <th>{{ form.email.label_tag }}</th>
-        <td>
-          {{ form.email.errors }}
-          {{ form.email }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.message.label_tag }}</th>
-        <td>
-          {{ form.message.errors }}
-          {{ form.message }}
-          <br />
-          {{ form.message.help_text }}
-        </td>
-      </tr>
-
+    {% endfor %}
   </table>
 
   <button type="submit">Submit</button>
